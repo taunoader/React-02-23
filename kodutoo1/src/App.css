@@ -1,0 +1,38 @@
+.green-button {
+  background-color:green;
+  color: lightgray;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: height 0.2s ease;
+  height: 30px;
+}
+
+.green-button:hover {
+  background-color:rgb(202, 13, 45);
+  height: 100px;
+  cursor: grab ;
+
+}
+
+.blue-text {
+  color: blue;
+  font-size: 16px;
+  transition: font-size 0.2s ease;
+  font-style: italic;
+}
+
+.blue-text:hover {
+  font-size: 24px;
+}
+
+.image-style {
+  width: 300px;
+  height: auto;
+  float: right;
+}
+
+body {
+  background-color: beige;
+}
