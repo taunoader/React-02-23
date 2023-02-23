@@ -11,7 +11,7 @@ function App() {
       </Link>
 
        <Link to="/ostukorv">
-          <button className='nupp'>Nupp</button>
+          <button className='nupp'>Ostukorv</button>
        </Link>
 
        <Link to="/lisa-toode">
@@ -19,12 +19,12 @@ function App() {
        </Link>
 
 
-<Routes>
-  <Route path="avaleht" element={<div>123</div>} />
-  <Route path="ostukorv" element={<div>0</div>} />
-  <Route path="lisa-toode" element={<div>LT</div>} />
-</Routes>
-    </div>
+    <Routes>
+       <Route path="avaleht" element={<div>123</div>} />
+       <Route path="ostukorv" element={<div>0</div>} />
+        <Route path="lisa-toode" element={<div>LT</div>} />
+   </Routes>
+  </div>
   );
 }
 
