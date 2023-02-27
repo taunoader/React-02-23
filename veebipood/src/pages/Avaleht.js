@@ -22,7 +22,7 @@ function Avaleht() {
 
   return (
     <div>
-     {laigitud === true && <img src="/laigitud.svg" alt="" />}
+      {laigitud === true && <img src="/laigitud.svg" alt="" />}
       {laigitud === false && <img src="/mittelaigitud.svg" alt="" />}
       <button onClick={() => uuendaLaigitud(!laigitud)}>Muuda laigitut</button>
       <div>{sonum}</div>

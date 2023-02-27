@@ -1,15 +1,33 @@
-import pilt from "./images/pilt.jpg"
 import './App.css';
+import { Link, Route, Routes } from 'react-router-dom';
+import Avaleht from './pages/Avaleht';
+import Kontakt from './pages/Kontakt';
+import Meist from './pages/Meist';
+import Seaded from './pages/Seaded'
 
 function App() {
   return (
-    <div className="App">
-    <button style={{width:"100px"}} className="green-button">
-      nupp
-    </button>
-    <p className="blue-text">Welcome to my React app.</p>
-    <img className="image-style" alt="dog image" src="https://images.pexels.com/photos/9122807/pexels-photo-9122807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"/>
-    </div>
+    <div>
+      <Link to='/'>
+        <button>Avaleht</button>
+      </Link>
+      <Link to='/kontakt'>
+        <button>Kontakt</button>
+      </Link>
+      <Link to='/meist'>
+        <button>Meist</button>
+      </Link>
+      <Link to='/seaded'>
+        <button>Seadetesse</button>
+      </Link>
+
+      <Routes>
+        <Route path='/' element={ <Avaleht /> } />
+        <Route path='/kontakt' element={ <Kontakt />} />
+        <Route path='/meist' element={ <Meist />} />
+        <Route path='/seaded' element={ <Seaded /> } />
+      </Routes>
+</div>
   );
 }
 
