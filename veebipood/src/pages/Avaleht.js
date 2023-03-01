@@ -28,7 +28,7 @@ function Avaleht() {
       <div>{sonum}</div>
       { kogus > 0 && <button onClick={nulli}>Nulli</button>}
       <button disabled={kogus === 0} onClick={vahenda}>-</button>
-      {kogus}
+      <span className={kogus >= 10 ? 'kuldne' : undefined}>{kogus}</span>
       <button onClick={suurenda}>+</button>
     </div>
   )

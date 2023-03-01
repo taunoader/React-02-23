@@ -1,9 +1,25 @@
-import React from 'react'
+import { useState } from 'react'
 
 function Seaded() {
-  return (
-    <div>Seaded</div>
-  )
+  const [kujundus, muudaKujundus] = useState(localStorage.getItem('veebilehe_kujundus'));
+
+  const tumeLeht = () => {
+    localStorage.setItem('veebilehe_kujundus', 'dark_mode');
+    muudaKujundus('dark_mode');
 }
 
-export default Seaded
+  const heleLeht = () => {
+    localStorage.setItem('veebilehe_kujundus', 'light_mode');
+    muudaKujundus('light_mode');
+}
+
+  return (
+    <div>
+      <button onClick={tumeLeht}>Tume leht</button>
+      <button onClick={heleLeht}>Hele leht</button>
+      { kujundus==='dark_mode' && <div>TUME LEHT</div> }
+      { kujundus==='light_mode' && <div>HELE LEHT</div> }
+  </div> );
+}
+
+export default Seaded;
