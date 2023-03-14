@@ -37,3 +37,10 @@
   minimaalne selle css klassi k6rgus on ekraani k6rgus view heightes ehk vaate protsentides
   50vh = 50% */
 }
+
+.varviline-leht {
+  background-color: maroon;
+  color: green;
+  min-height: 100vh;
+  height: 100%;
+}

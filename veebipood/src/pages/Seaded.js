@@ -22,20 +22,28 @@ function Seaded() {
     const emailViide = useRef();
     const telefonViide = useRef();
     const aadressViide = useRef();
+
+    // VALIKU KYSIMUS, kas teha 1 voi 3 funktsiooni
+    // kui onClick on .map() sees, siis PEAN TEGEMA 1 funktsiooni mis sulgude seest v6tab muutuja
  
-    const muudaKeelEst = () => {
-        uuendaKeel('est');
-        localStorage.setItem('keel','est');
-    }
+   // const muudaKeelEst = () => {
+   //     uuendaKeel('est');
+   //     localStorage.setItem('keel','est');
+   // }
 
-    const muudaKeelEng = () => {
-        uuendaKeel('eng');
-        localStorage.setItem('keel','eng');
-    }
+   //  const muudaKeelEng = () => {
+   //     uuendaKeel('eng');
+   //     localStorage.setItem('keel','eng');
+   // }
 
-    const muudaKeelRus = () => {
-        uuendaKeel('rus');
-        localStorage.setItem('keel','rus');
+   // const muudaKeelRus = () => {
+   //     uuendaKeel('rus');
+   //     localStorage.setItem('keel','rus');
+   // }
+
+    const muudaKeel = (uusKeel) => {
+        uuendaKeel(uusKeel);
+        localStorage.setItem('keel',uusKeel)
     }
 
     const salvestaEmail = () => {
@@ -44,6 +52,7 @@ function Seaded() {
             toast.error('Kontrolli e-mail');
         } else {
             toast.success("Email salvestatud!")
+            localStorage.setItem('telefon', telefonViide.current.value)
         }
     }
 
@@ -83,9 +92,9 @@ function Seaded() {
         <input ref={aadressViide} type='text' />
         <button onClick={salvestaAadress}>Sisesta</button>
         <br /><br />
-        <button onClick={muudaKeelEst}>Eesti keelseks</button>
-        <button onClick={muudaKeelEng}>Inglise keelseks</button>
-        <button onClick={muudaKeelRus}>Vene keelseks</button>
+        <button onClick={() => muudaKeel('est')}>Eesti keelseks</button>
+        <button onClick={() => muudaKeel('eng')}>Inglise keelseks</button>
+        <button onClick={() => muudaKeel('rus')}>Vene keelseks</button>
         { keel === 'est' && <div>Leht on eesti keelne</div>}
         { keel === 'eng' && <div>Page is in English</div>}
         { keel === 'rus' && <div>Pycckij Rsok</div>}
