@@ -3,6 +3,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import Seaded from './pages/Seaded';
 import Books from './pages/Books';
 import Numbrid from './pages/Numbrid';
+import Random from './pages/Random';
 
 function App() {
   return (
@@ -21,10 +22,15 @@ function App() {
         <button>Numbrid</button>
       </Link>
 
+      <Link to='/random'>
+        <button>Random</button>
+      </Link>
+
       <Routes>
         <Route path='/seaded' element={ <Seaded /> } />
         <Route path='/books' element={ <Books /> } />
         <Route path='/numbrid' element={ <Numbrid /> } />
+        <Route path='/random' element={ <Random /> } />
       </Routes>
 </div>
   );

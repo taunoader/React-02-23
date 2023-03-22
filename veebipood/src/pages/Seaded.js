@@ -17,6 +17,24 @@ import { ToastContainer, toast } from 'react-toastify';
 // kollane, lilla, sinine, kollane, lilla, sinine, kollane, lilla, sinine
 // tumeroheline - kommentaar
 
+// () -> funkstiooni, mis k2ivitub, kollase s6na taga
+//       if sees kontrollime kas t6ene v6i v22r
+// {} -> JavaScriptis koodiblokki const nimi = () => {}    if () {} else {}
+//       HTMLs JavaScripti (dynaamikat)
+//                                              {} = useParams   <- mitu tk pole m22ratletud
+// [] -> Array'd ehk v22rtuste kogum  [keel, muudaKeel] = useState <- peab olema t2pselt 2tk
+// =  -> annan v22rtust
+// == -> kontrollin kas vasak ja parem pool on v6rdne ilma tyybi kontrollita (react annab warningu)
+// === -> kontrollin kas vasak ja parem on v6rdne
+// && -> kui vasakul on t6de, siis parem ilmub
+// || -> kui vasakul on tyhjus (null), siis v6etakse kasutusele parem
+// ;  -> rea l6pu t2histus
+// ?  :   ->  tavaliselt className sees   KUI ON TÕDE ? "Võetakse see" : "Ei ole tõde, võetakse see"
+//        lühendatud if else , ternary operator
+// >=    suurem v2iksem
+// <     v2iksem
+// .     saab v2lja kutsuda omadusi (   . length   .getItem   )
+
 function Seaded() {
     const [keel, uuendaKeel] = useState(localStorage.getItem('keel'));
     const emailViide = useRef();
@@ -65,6 +83,7 @@ function Seaded() {
         toast.error('Telefoni number ei koosne ainult numbritest');
        } else {
         toast.success("Telefon salvestatud!")
+        localStorage.setItem("telefon", telefonViide.current.value)
        } 
     }
 
@@ -75,6 +94,7 @@ function Seaded() {
             toast.error('Aadress kirjuta suure algustahega');
         } else {
             toast.success("Aadress salvestatud!")
+            localStorage.setItem("aadress", aadressViide.current.value)
         }
     }
 

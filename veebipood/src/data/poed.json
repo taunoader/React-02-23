@@ -1,9 +1,9 @@
 [
-  "Ylemiste",
-  "Viimsi",
-  "Rocca al Mare",
-  "Magistrali",
-  "Vesse",
-  "Kristiine",
-  "J2rveotsa"
+  {"nimi": "Ylemiste", "tel": "5527568"},
+  {"nimi": "Viimsi", "tel": "57832423"},
+  {"nimi": "Rocca al Mare", "tel": "56345434"},
+  {"nimi": "Magistrali", "tel": "56345434"},
+  {"nimi": "Vesse", "tel": "59345434"},
+  {"nimi": "Kristiine", "tel": "56345430"},
+  {"nimi": "J2rveotsa", "tel": "56345494"}
 ]
