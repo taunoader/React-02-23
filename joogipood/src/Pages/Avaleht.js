@@ -1,4 +1,4 @@
-import React from "react";
+import joogidFailist from "../joogid.json"
 import { useState } from "react-router-dom";
 import { Link } from "react-router-dom";
 
