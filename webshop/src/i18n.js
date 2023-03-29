@@ -22,11 +22,28 @@ const resources = {
     translation: {
     "cart": "Ostukorvi",
     "shops": "Meie poed",
-    "contact": "Notakteeru meiega",
+    "contact": "Kontakteeru meiega",
     "admin": "Administraatori vaatesse",
+    }
+  },
+  fin: {
+    translation: {
+    "cart": "Ostoskärry",
+    "shops": "Meidän kaupat",
+    "contact": "Ota meihin yhteyttä",
+    "admin": "Järjestelmänvalvojanäkymään",
+    }
+  },
+  rus: {
+    translation: {
+    "cart": "Корзина",
+    "shops": "Наши магазины",
+    "contact": "Связаться с нами",
+    "admin": "Для администратора",
     }
   }
 };
+
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next

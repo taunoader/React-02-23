@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react';
-import tootedFailist from '../data/tooted.json';
+import React, { useRef, useState } from "react";
+import tootedFailist from "../data/tooted.json";
 
-function LisaToode() { // Reacti hookid
-  const [ sonum, uuendaSonum] = useState('Lisa uus toode!'); // oleku muutmine
+function LisaToode() {
+  // Reacti hookid
+  const [sonum, uuendaSonum] = useState("Lisa uus toode!"); // oleku muutmine
   const nimiViide = useRef(); // reference ehk viide inputist
   const hindViide = useRef();
   const piltViide = useRef();
@@ -11,18 +12,18 @@ function LisaToode() { // Reacti hookid
   // function lisa2() {}
 
   const lisa = () => {
-    if (nimiViide.current.value === '') {
-      uuendaSonum('Tyhja nimetusega ei saa toodet lisada');
+    if (nimiViide.current.value === "") {
+      uuendaSonum("Tyhja nimetusega ei saa toodet lisada");
     } else {
-      uuendaSonum('Toode lisatud' + nimiViide.current.value)
+      uuendaSonum("Toode lisatud" + nimiViide.current.value);
       tootedFailist.push({
-      "nimi": nimiViide.current.value,
-      "hind": Number(hindViide.current.value),
-      "pilt": piltViide.current.value,
-      "aktiivne": aktiivneViide.current.value,
+        nimi: nimiViide.current.value,
+        hind: Number(hindViide.current.value),
+        pilt: piltViide.current.value,
+        aktiivne: aktiivneViide.current.value,
       });
     }
-  }
+  };
 
   return (
     <div>
@@ -37,7 +38,7 @@ function LisaToode() { // Reacti hookid
       <input ref={aktiivneViide} type="checkbox" /> <br />
       <button onClick={lisa}>Sisesta</button> <br />
     </div>
-  )
+  );
 }
 
-export default LisaToode
+export default LisaToode;
