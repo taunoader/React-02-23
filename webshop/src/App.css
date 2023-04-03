@@ -1,0 +1,18 @@
+.map {
+    height: 300px;
+    margin: 10px 40px;
+}
+
+.lang:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.lang:active {
+    padding: 1px;
+}
+
+.contact {
+    text-align: center;
+    margin-top:  50px;
+}

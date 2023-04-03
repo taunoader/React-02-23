@@ -3,7 +3,7 @@ import "./App.css";
 import HomePage from "./pages/global/HomePage";
 import Cart from "./pages/global/Cart";
 import Shops from "./pages/global/Shops";
-import ContactUs from "./pages/global/ContactUs";
+import { ContactUs } from "./pages/global/ContactUs";
 import AdminHome from "./pages/admin/AdminHome";
 import AddProduct from "./pages/admin/AddProduct";
 import MaintainProducts from "./pages/admin/MaintainProducts";
