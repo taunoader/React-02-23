@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import "../../css/Cart.css";
 import Button from '@mui/material/Button';
 
 function Cart() {
+  const [parcelMachines, setParchelMachines] = useState([]);
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
+
+  useEffect(() => {
+    fetch("https://www.omniva.ee/locations.json")
+      .then(res => res.json())
+      .then(json => setParchelMachines(json))
+  }, []);
 
   const emptyCart = () => {
     setCart([]);
@@ -39,6 +46,7 @@ function Cart() {
     cart.forEach((element) => (sum = sum + element.product.price * element.quantity));
     return sum.toFixed(2);
   };
+
   // ostukorvi kogusumma arvutus
 
   // mitu tykki on ostukorvi v2ljakuvamine
@@ -78,6 +86,7 @@ function Cart() {
       {cart.length > 0 &&
        <div className="cart-bottom">
         <div className="sum">Subtotal: {summary()} €</div>
+        <select>{parcelMachines.filter(pm => pm.A0_NAME === "EE").map(pm => <option key={pm.NAME}>{pm.NAME}</option>)}</select>
         </div>
         }
     </div>

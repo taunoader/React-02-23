@@ -2,6 +2,7 @@ import React from 'react'
 import productsFromFile from "../../data/products.json";
 import { useState } from "react"
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
 const[products, setProducts] = useState(productsFromFile);
@@ -47,17 +48,28 @@ const addProductToCart = (productClicked) => {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
+  // const filterProducts = () => {}
+  // const filterProductsUSB = () => {}
+  const filterProducts = (categoryClicked) => {}
+
   return (
     <div>
-      {products.map(element =>
-      <div key={element.id}>
-        <img src={element.image} alt="" />
-        <div>{element.name}</div>
-        <div>{element.price}</div>
         <Button onClick={sortAZ}>Sort A-Z</Button>
         <Button onClick={sortZA}>Sort Z-A</Button>
         <Button onClick={sortPriceHigh}>Sort by price low to high</Button>
         <Button onClick={sortPriceLow}>Sort by price high to low</Button>
+        <div>{products.length} pcs</div>
+        <button>memory bank</button>
+        <button>usb drive</button>
+        <button>motorcycle</button>
+        <button>motors</button>
+      {products.map(element =>
+      <div key={element.id}>
+        <Link to={"/product/" + element.id}>
+        <img src={element.image} alt="" />
+        <div>{element.name}</div>
+        <div>{element.price}</div>
+        </Link>
         <Button variant="contained" onClick={() => addProductToCart(element)}>Add to cart</Button>
         </div>)}
     </div>

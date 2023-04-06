@@ -1,4 +1,6 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
+import productsFromFile from "../../data/products.json"
 
 function SingleProduct() {
     // VEEBIPOE N2ITE P6HJAL: yhe toote v6tmise
@@ -8,9 +10,24 @@ function SingleProduct() {
     // 4. .find() <--- see on erinev v6rreldes eesti keelse veebipoega
     //    sarnane EditProduct.js loogikaga
     // 5. HTML v2lja kuvama
+    const { id } = useParams();             // ["Nobe", "Tesla", "Nobe"]
+    const found = productsFromFile.find(product => product.id === Number(id));  // 1 toote
+                 // productsFromFile.filter(product => product.id === Number(id))[0]; // toodete hunniku ["Nobe"]
+                 // productsFromFile.findIndex(product => product.id === Number(id))[id]; // 1 toote j2rjekorranumbri 0
 
   return (
-    <div>SingleProduct</div>
+    <div>
+      {found !== undefined &&
+      <div>
+      <img src={found.image} alt="" />
+      <div>ID:{found.id} </div>
+      <div>Name: {found.name}</div>
+      <div>Description:..</div>      
+      <div>Category: {found.category}</div>
+      <div>Price: {found.price}</div>
+      </div>}
+      {found !== undefined && <div>Toodet ei leitud!</div>}
+    </div>
   )
 }
 

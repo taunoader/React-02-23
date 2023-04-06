@@ -13,6 +13,19 @@ function AddProduct() {
   const [isUnique, setUnique] = useState(true);
 
   const Add = () => {
+    if (idRef.current.value === "") {
+      toast.error("Ei saa lisada tühja ID-ga!")
+      return;
+    }
+    if (nameRef.current.value === "") {
+      toast.error("Ei saa lisada tühja nimega!")
+      return;
+    }
+    if (priceRef.current.value === "") {
+      toast.error("Ei saa lisada tühja hinnaga!")
+      return;
+    }
+
     if (nameRef.current.value === "") {
       toast.error("Tyhja nimetusega ei saa toodet lisada");
     } else {

@@ -31,6 +31,16 @@ const navigate = useNavigate();
 const [isUnique, setUnique] = useState(true);
 
 const edit = () => {
+  if (idRef.current.value === "") {
+    return;
+  }
+  if (nameRef.current.value === "") {
+    return;
+  }
+  if (priceRef.current.value === "") {
+    return;
+  }
+
   productsFromFile[index] = {
     "id": Number(idRef.current.value),
     "name": nameRef.current.value,
@@ -46,6 +56,10 @@ const edit = () => {
 }
 
 const checkIdUniqueness = () => {
+  if (idRef.current.value === id) {
+    setUnique(true);
+    return;
+  }
 
 const product = productsFromFile.find(element => element.id === Number(idRef.current.value));
 if (product === undefined) {
