@@ -1,18 +1,20 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import productsFromFile from "../../data/products.json"
-import { useRef, useState } from 'react'
+// import productsFromFile from "../../data/products.json"
+import { useEffect, useRef, useState } from 'react'
+import config from "../../data/config.json"
 
 function EditProduct() {
 const { id } = useParams();
+const [dbProducts, setDbProducts] = useState([]);
 // ENNE VEEBIPOES: const leitud = productsFromFile[id]   productsFromFile[93.876.610]
 // kui on kandilised sulud, t2hendab j2rjekorranumbri alusel leidmiseks
 // .find vs .filter ---> kysivad mis on tingimus
 // .find annab mulle 1, k6ige esimene
 // .fillter annab mulle k6ik kellel tingimus vastab
 // const found = productsFromFilter.filter(element.id === id)[0]
-const found = productsFromFile.find(element => element.id === Number(id)); // .find   .filter / .sort / .map / .forEach
-const index = productsFromFile.findIndex(element => element.id === Number(id));
+const found = dbProducts.find(element => element.id === Number(id)); // .find   .filter / .sort / .map / .forEach
+const index = dbProducts.findIndex(element => element.id === Number(id));
 // !==   ! - keerab vastupidiseks, ei v6rdu
 // ===   vasak ja parem pool v6rduvad
 // !==   vasak ja parem pool ei v6rdu
@@ -30,6 +32,14 @@ const activeRef = useRef();
 const navigate = useNavigate(); 
 const [isUnique, setUnique] = useState(true);
 
+useEffect(() => {
+  fetch(config.productsDbUrl)
+  .then(response => response.json())
+  .then(json => {  // null || []        null - tyhjus
+    setDbProducts(json || []);  // [].length    [].map   annavad errori:   null.length   null.map()
+  })
+}, []);
+
 const edit = () => {
   if (idRef.current.value === "") {
     return;
@@ -41,7 +51,7 @@ const edit = () => {
     return;
   }
 
-  productsFromFile[index] = {
+  dbProducts[index] = {
     "id": Number(idRef.current.value),
     "name": nameRef.current.value,
     "price": Number(priceRef.current.value),
@@ -50,9 +60,9 @@ const edit = () => {
     "category": categoryRef.current.value,
     "description": descriptionRef.current.value
   }
-  navigate("/admin/maintain-products")
-// productsFromFile[5] = updatedProduct;
-//  ["Nobe", "BMW", "Tesla"][0] = "Audi";
+  fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)})
+    .then(res => res.json())
+    .then(() => navigate("/admin/maintain-products"));
 }
 
 const checkIdUniqueness = () => {
@@ -61,7 +71,7 @@ const checkIdUniqueness = () => {
     return;
   }
 
-const product = productsFromFile.find(element => element.id === Number(idRef.current.value));
+const product = dbProducts.find(element => element.id === Number(idRef.current.value));
 if (product === undefined) {
  // Kelleli ei ole olemas! Korras! Unikaalne!
  setUnique(true);

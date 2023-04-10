@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
-import productsFromFile from "../../data/products.json";
+import React, { useEffect, useRef, useState } from "react";
+// import productsFromFile from "../../data/products.json";
 import { ToastContainer, toast } from "react-toastify";
+import config from "../../data/config.json";
 
 function AddProduct() {
   const idRef = useRef();
@@ -11,6 +12,15 @@ function AddProduct() {
   const descriptionRef = useRef();
   const activeRef = useRef();
   const [isUnique, setUnique] = useState(true);
+  const [dbProducts, setDbProducts] = useState([]);
+
+  useEffect(() => {
+    fetch(config.productsDbUrl)
+    .then(response => response.json())
+    .then(json => {  // null || []        null - tyhjus
+      setDbProducts(json || []);  // [].length    [].map   annavad errori:   null.length   null.map()
+    })
+  }, []);
 
   const Add = () => {
     if (idRef.current.value === "") {
@@ -30,7 +40,8 @@ function AddProduct() {
       toast.error("Tyhja nimetusega ei saa toodet lisada");
     } else {
       toast.success("Toode edukalt lisatud" + nameRef.current.value);
-      productsFromFile.push({
+
+      dbProducts.push({
         id: Number(idRef.current.value),
         name: nameRef.current.value,
         price: Number(priceRef.current.value),
@@ -39,12 +50,13 @@ function AddProduct() {
         category: categoryRef.current.value,
         description: descriptionRef.current.value,
       });
+      fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)});
     }
   };
 
   const checkIdUniqueness = () => {
 
-    const product = productsFromFile.find(element => element.id === Number(idRef.current.value));
+    const product = dbProducts.find(element => element.id === Number(idRef.current.value));
     if (product === undefined) {
      // Kelleli ei ole olemas! Korras! Unikaalne!
      setUnique(true);

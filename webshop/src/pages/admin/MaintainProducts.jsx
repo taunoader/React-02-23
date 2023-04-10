@@ -1,19 +1,32 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import productsFromFile from '../../data/products.json';
+// import productsFromFile from '../../data/products.json';
+import config from "../../data/config.json"
 
 function MaintainProducts() {
-  const [products, setProducts] = useState(productsFromFile);
+  const [products, setProducts] = useState([]);
+  const [dbProducts, setDbproducts] = useState([]);
   const searchedRef = useRef();
 
-  const remove = (index) => {
-    const updatedProducts = [...products];
-    updatedProducts.splice(index, 1);
-    setProducts(updatedProducts);
+  useEffect(() => {
+    fetch(config.productsDbUrl)
+    .then(response => response.json())
+    .then(json => {
+      setProducts(json || []);  // null || []        null - tyhjus
+      setDbproducts(json || []);  // [].length    [].map   annavad errori:   null.length   null.map()
+    })
+  }, []);
+
+  const remove = (productId) => {
+    const index = dbProducts.findIndex(element => element.id === productId);
+    dbProducts.splice(index, 1);
+    setProducts(dbProducts);
+    fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)});
+    searchFromProducts();
   };
 
   const searchFromProducts = () => {
-    const result = productsFromFile.filter(element =>
+    const result = dbProducts.filter(element =>
       element.name.toLowerCase().includes(searchedRef.current.value.toLowerCase()));
     setProducts(result)
   }
@@ -31,7 +44,7 @@ function MaintainProducts() {
           <div>{element.category}</div>
           <div>{element.description}</div>
           <div>{element.active}</div>
-          <button onClick={() => remove(index)}>Kustuta</button>
+          <button onClick={() => remove(element.id)}>Kustuta</button>
           <Link to={`/admin/edit/${element.id}`}>
             <button>Muuda</button>
           </Link>

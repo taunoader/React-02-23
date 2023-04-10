@@ -1,11 +1,28 @@
 import React from 'react'
-import productsFromFile from "../../data/products.json";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import config from "../../data/config.json"
 
 function HomePage() {
-const[products, setProducts] = useState(productsFromFile);
+const [products, setProducts] = useState([]);
+const [dbProducts, setDbproducts] = useState([]);
+const [categories, setCategories] = useState([]);
+
+// uef
+useEffect(() => {
+  fetch(config.categoriesDbUrl)
+  .then(response => response.json())
+  .then(json => setCategories(json || []))
+
+
+  fetch(config.productsDbUrl)
+  .then(response => response.json())
+  .then(json => {
+    setProducts(json || []);  // null || []        null - tyhjus
+    setDbproducts(json || []);  // [].length    [].map   annavad errori:   null.length   null.map()
+  })
+}, []);
 
 const sortAZ = () => {
   products.sort((a,b) => a.name.localeCompare(b.name))
@@ -50,7 +67,10 @@ const addProductToCart = (productClicked) => {
 
   // const filterProducts = () => {}
   // const filterProductsUSB = () => {}
-  const filterProducts = (categoryClicked) => {}
+  const filterProducts = (categoryClicked) => {
+    const filteredProducts = dbProducts.filter((product) => product.category === categoryClicked);
+    setProducts(filteredProducts);
+}
 
   return (
     <div>
@@ -59,11 +79,14 @@ const addProductToCart = (productClicked) => {
         <Button onClick={sortPriceHigh}>Sort by price low to high</Button>
         <Button onClick={sortPriceLow}>Sort by price high to low</Button>
         <div>{products.length} pcs</div>
-        <button>memory bank</button>
-        <button>usb drive</button>
-        <button>motorcycle</button>
-        <button>motors</button>
-      {products.map(element =>
+        {/* <button onClick={() => filterProducts("camping")}>camping</button>
+        <button onClick={() => filterProducts("tent")}>tent</button>
+        <button onClick={() => filterProducts("motorcycle")}>motorcycle</button>
+  <button onClick={() => filterProducts("motors")}>motors</button>*/}
+        {
+        categories.map(category => <button onClick={() => filterProducts("category.name")}>{category.name}</button>)
+        }
+      {products.map(element => 
       <div key={element.id}>
         <Link to={"/product/" + element.id}>
         <img src={element.image} alt="" />

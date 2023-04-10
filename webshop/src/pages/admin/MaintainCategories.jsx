@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import config from "../../data/config.json"
 
 function MaintainCategories() {
   const [categories, setCategories] = useState([])
@@ -7,7 +8,7 @@ function MaintainCategories() {
   // uef --> kohe kui lehele tulles, midagi kysitakse v66ralt URL-lt siis peab uef tegema
   // localStorage.getItem("categories")
   useEffect(() => {
-    fetch("https://webshop-349da-default-rtdb.europe-west1.firebasedatabase.app/categories.json")
+    fetch(config.categoriesDbUrl)
       .then(response => response.json())
       .then(json => setCategories(json || []))
   }, []);
@@ -16,7 +17,7 @@ function MaintainCategories() {
     categories.push({"name": categoryRef.current.value})
     setCategories(categories.slice());
     // localStorage.setItem("categories", categories)
-    fetch("https://webshop-349da-default-rtdb.europe-west1.firebasedatabase.app/categories.json", {
+    fetch(config.categoriesDbUrl, {
       "method": "PUT",
       "body": JSON.stringify(categories)
     })
@@ -26,7 +27,7 @@ function MaintainCategories() {
     categories.splice(index,1)
     setCategories(categories.slice());
     // localStorage.setItem("categories", categories)
-    fetch("https://webshop-349da-default-rtdb.europe-west1.firebasedatabase.app/categories.json", {
+    fetch(config.categoriesDbUrl, {
       "method": "PUT",
       "body": JSON.stringify(categories)
     })
