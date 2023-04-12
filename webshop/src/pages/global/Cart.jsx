@@ -47,6 +47,29 @@ function Cart() {
     return sum.toFixed(2);
   };
 
+  const pay = () => {
+    const paymentUrl = "https://igw-demo.every-pay.com/api/v4/payments/oneoff";
+
+    const paymentData = {
+        "api_username": "e36eb40f5ec87fa2",
+        "account_name": "EUR3D1",
+        "amount": summary(),
+        "order_reference": Math.random() * 9999999,
+        "nonce": "a9b7f7e7944" + Math.random() * 999999 + new Date(),
+        "timestamp": new Date(),
+        "customer_url": "https://tauno-webshop.web.app"
+    };
+
+    const paymentHeaders = {
+      "Authorization": "Basic ZTM2ZWI0MGY1ZWM4N2ZhMjo3YjkxYTNiOWUxYjc0NTI0YzJlOWZjMjgyZjhhYzhjZA==",
+      "Content-Type": "application/json"
+    };
+
+      fetch(paymentUrl, {"method": "POST", "body": JSON.stringify(paymentData), "headers": paymentHeaders})
+        .then(res => res.json())
+        .then(json => window.location.href = json.payment_link);
+  }
+
   // ostukorvi kogusumma arvutus
 
   // mitu tykki on ostukorvi v2ljakuvamine
@@ -87,6 +110,7 @@ function Cart() {
        <div className="cart-bottom">
         <div className="sum">Subtotal: {summary()} €</div>
         <select>{parcelMachines.filter(pm => pm.A0_NAME === "EE").map(pm => <option key={pm.NAME}>{pm.NAME}</option>)}</select>
+        <button onClick={pay}>Pay</button>
         </div>
         }
     </div>

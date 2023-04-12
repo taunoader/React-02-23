@@ -13,8 +13,13 @@ function AddProduct() {
   const activeRef = useRef();
   const [isUnique, setUnique] = useState(true);
   const [dbProducts, setDbProducts] = useState([]);
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
+    fetch(config.categoriesDbUrl)
+    .then(response => response.json())
+    .then(json => setCategories(json || []))
+
     fetch(config.productsDbUrl)
     .then(response => response.json())
     .then(json => {  // null || []        null - tyhjus
@@ -40,6 +45,8 @@ function AddProduct() {
       toast.error("Tyhja nimetusega ei saa toodet lisada");
     } else {
       toast.success("Toode edukalt lisatud" + nameRef.current.value);
+      
+    
 
       dbProducts.push({
         id: Number(idRef.current.value),
@@ -84,7 +91,10 @@ function AddProduct() {
       <label>Uue toote pilt</label> <br />
       <input ref={imageRef} type="text" /> <br />
       <label>Uue toote kategooria</label> <br />
-      <input ref={categoryRef} type="text" /> <br />
+      {/*<input ref={categoryRef} type="text" /> <br /> */}
+      <select ref={categoryRef}>
+        {categories.map(element => <option key={element.name}>{element.name}</option> )}
+      </select> <br />
       <label>Uue toote kirjeldus</label> <br />
       <input ref={descriptionRef} type="text" /> <br />
       <label>Uue toote aktiivsus</label> <br />

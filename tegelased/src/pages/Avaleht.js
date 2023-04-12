@@ -24,7 +24,7 @@ function Avaleht() {
 
   return (
     <div>
-      <div>Klikkisid tegelase {klikitudNimi} peal</div>
+      {klikitudNimi !== "" && <div>Klikkisid tegelase {klikitudNimi} peal</div>}
       {tegelased.map((tegelane) => (
         <div>
           <div>{tegelane.eesnimi}</div>
